@@ -31,7 +31,7 @@ class EmailVal extends StatefulWidget {
 
 class _EmailValState extends State<EmailVal> {
 
-    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
    var email;
    var password;
  
@@ -55,7 +55,7 @@ class _EmailValState extends State<EmailVal> {
              return Center(
                child: AlertDialog(
                  title: Text("Invalid"),
-                 content: Text("Check your emain & password and try again. "),
+                 content: Text("Please check your emain & password and try again. "),
                  actions: [
                    RaisedButton(child: Text("ok"),
                    onPressed: (){Navigator.pop(context);}
