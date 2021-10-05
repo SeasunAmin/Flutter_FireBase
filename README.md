@@ -1,6 +1,11 @@
 # firebase_projects
-
-A new Flutter project.
+Octobar 1,2021
+   *Show data from firebase is complite.
+   *Pass data into firebase in done.
+   
+ Octobar 4,2021
+   *Email Authencation is not complite yet.
+  
 
 ## Getting Started
 
