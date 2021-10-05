@@ -5,6 +5,8 @@ import 'package:firebase_projects/Sinup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'HomePage.dart';
+
 void main()
 async{
   {
@@ -29,16 +31,49 @@ class EmailVal extends StatefulWidget {
 
 class _EmailValState extends State<EmailVal> {
 
-   final _auth = FirebaseAuth.instance;
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
    var email;
    var password;
-   var user;
+ 
+
+
+  login()async{
+     
+       final User?  user =(await firebaseAuth.signInWithEmailAndPassword(email: email, password: password)).user;
+       if (user !=null ) 
+       {
+          Route route =
+                       MaterialPageRoute(builder: (context) => MainPage());
+                       Navigator.push(context, route);
+                      // print("yea bro success!!");
+                      
+       }
+       else //if(user!=null) 
+       {
+           
+            showDialog(context: context, builder: (context){
+             return Center(
+               child: AlertDialog(
+                 title: Text("Invalid"),
+                 content: Text("Check your emain & password and try again. "),
+                 actions: [
+                   RaisedButton(child: Text("ok"),
+                   onPressed: (){Navigator.pop(context);}
+                   ,)
+                 ],
+               ),
+             );
+            }
+          );
+       }
+      
+    }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        title:  Text("Home"),
         centerTitle: true,
       ),
       body: ListView(
@@ -46,7 +81,7 @@ class _EmailValState extends State<EmailVal> {
           Column(
             children: [
                Image.asset("assets/talk.png",height: 250,width: double.infinity,),
-               const Text("Welcome to login page",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                Text("Welcome to login page",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                Padding(
                  padding: const EdgeInsets.all(18.0),
                  child: TextField(
@@ -78,21 +113,22 @@ class _EmailValState extends State<EmailVal> {
                         hintText:"Enter your Password",
                          border:
                        OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-                       prefixIcon: const Icon(Icons.pin_rounded,color: Colors.blue,),  
+                       prefixIcon: const Icon(Icons.lock,color: Colors.blue,),  
+                        
                     ),
                     onChanged: (value){
                       setState(() {
                         password = value;
                       });
                     },
-                      
+                    
                      
                     ),
                   ),
 
                   RaisedButton(
                     child: Text("Login"),
-                    onPressed: (){},
+                    onPressed: login,
                     color: Colors.green,
                   ),
                   TextButton(

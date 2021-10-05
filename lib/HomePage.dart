@@ -1,26 +1,28 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Home extends StatefulWidget {
-  const Home({ Key? key }) : super(key: key);
+class MainPage extends StatefulWidget {
+  const MainPage({ Key? key }) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _HomeState extends State<Home> {
+class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: AppBar(
-       title: Text("Home"),
-     ),
-     body: Column(
-       children: [
-         Text("HOME PAGE")
-       ],
-     ),
+      appBar: AppBar(
+        title: Text("Home Page"),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+          child:  Text("Wlcome to Home Page",style: TextStyle(fontSize: 28),),
+          )
+        ],
+      ),
     );
   }
 }

@@ -31,10 +31,10 @@ class _DataState extends State<Data> {
     'name':'Seasun',
     'age':'22',
     'dept':'CSE',
-   
+        
   });
  }
-
+var name = "saea";
   @override
   Widget build(BuildContext context) {
     return Scaffold(

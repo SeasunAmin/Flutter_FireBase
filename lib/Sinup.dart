@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_projects/1.main.dart';
+import 'package:firebase_projects/HomePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,10 +12,26 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  var user;
-   final _auth = FirebaseAuth.instance;
+   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
    var email;
    var password;
+
+  register()async{
+       
+       final User?  user =(await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password)).user;
+       if (user!=null) 
+       {
+          Route route =
+                       MaterialPageRoute(builder: (context) => MainPage());
+                       Navigator.push(context, route);
+                       print("yea bro success!!");
+       }
+       else
+       {
+         print("Bro you got Error...!");
+       }
+    }
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -38,7 +55,10 @@ class _SignUpState extends State<SignUp> {
                      OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
                      prefixIcon: const Icon(Icons.account_circle,color: Colors.blue,),  
                   ),
-                    
+                    onChanged: (value)
+                    {
+                      email = value;
+                    }
                    
                   ),
                   
@@ -55,30 +75,21 @@ class _SignUpState extends State<SignUp> {
                        OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
                        prefixIcon: const Icon(Icons.pin_rounded,color: Colors.blue,),  
                     ),
-                      
+                      onChanged: (value)
+                      {
+                        password=value;
+                      }
                      
                     ),
                   ),
 
                   RaisedButton(
                     child: Text("SignUp"),
-                    onPressed: ()async {
+                    onPressed: register,
                      
-                      user = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-                      if(user!=null)
-                      {
-                         Route route =
-                       MaterialPageRoute(builder: (context) => HomePage());
-                       Navigator.push(context, route);
-                      }
-                      else{
-                        print("Not connect yet");
-                      }
-                   },   
                     color: Colors.green,
                   ),
                 
-    
             ],
           )
         ],
